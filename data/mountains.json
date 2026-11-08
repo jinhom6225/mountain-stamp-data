@@ -1,13 +1,13 @@
 {
  "schemaVersion": 1,
- "generatedAt": "2026-11-08T21:38:30Z",
+ "generatedAt": "2026-11-08T23:45:47Z",
  "sources": [
   {
    "id": "ktc",
    "name": "한국등산트레킹지원센터 100대명산 목록정보",
    "url": "https://www.data.go.kr/data/15125127/openapi.do",
    "count": 100,
-   "fetchedAt": "2026-11-08T21:38:30Z",
+   "fetchedAt": "2026-11-08T23:45:47Z",
    "extractedAt": "2026-11-09 06:01:50"
   },
   {
@@ -15,21 +15,21 @@
    "name": "한국등산트레킹지원센터 100대명산 봉우리POI정보",
    "url": "https://www.data.go.kr/data/15097953/openapi.do",
    "count": 960,
-   "fetchedAt": "2026-11-08T21:38:30Z"
+   "fetchedAt": "2026-11-08T23:45:47Z"
   },
   {
    "id": "kfsTrail",
    "name": "산림청 명산등산로",
    "url": "https://www.data.go.kr/data/15158915/openapi.do",
    "count": 100,
-   "fetchedAt": "2026-11-08T21:38:30Z"
+   "fetchedAt": "2026-11-08T23:45:47Z"
   },
   {
    "id": "kfsMnt",
    "name": "산림청 산정보",
    "url": "https://www.data.go.kr/data/15058662/openapi.do",
    "count": 4705,
-   "fetchedAt": "2026-11-08T21:38:30Z"
+   "fetchedAt": "2026-11-08T23:45:47Z"
   }
  ],
  "items": [
