@@ -1,0 +1,13 @@
+{
+  "name": "ktc_top100_list_empty",
+  "url": "https://apis.data.go.kr/B553662/top100FamtListBasiInfoService/getTop100FamtListBasiInfoList",
+  "params": {
+    "pageNo": "1",
+    "numOfRows": "10",
+    "type": "json",
+    "srchFrtrlNm": "없는산이름"
+  },
+  "status": 504,
+  "content_type": "application/json",
+  "bytes": 194
+}

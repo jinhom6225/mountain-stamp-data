@@ -1,0 +1,13 @@
+{
+  "name": "ktc_peak_poi_peak_p1",
+  "url": "https://apis.data.go.kr/B553662/peakPoiInfoService/getPeakPoiInfoList",
+  "params": {
+    "pageNo": "1",
+    "numOfRows": "1000",
+    "type": "json",
+    "srchPlaceTpeCd": "PEAK"
+  },
+  "status": 200,
+  "content_type": "application/json;charset=UTF-8",
+  "bytes": 606551
+}

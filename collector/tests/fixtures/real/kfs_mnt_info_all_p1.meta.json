@@ -1,0 +1,11 @@
+{
+  "name": "kfs_mnt_info_all_p1",
+  "url": "https://apis.data.go.kr/1400000/service/cultureInfoService2/mntInfoOpenAPI2",
+  "params": {
+    "pageNo": "1",
+    "numOfRows": "1000"
+  },
+  "status": 200,
+  "content_type": "application/xml",
+  "bytes": 652748
+}

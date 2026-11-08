@@ -1,0 +1,12 @@
+{
+  "name": "ktc_plus_list",
+  "url": "https://apis.data.go.kr/B553662/top100FamtPlusListBasiInfoService/getTop100FamtPlusListBasiInfoList",
+  "params": {
+    "pageNo": "1",
+    "numOfRows": "100",
+    "type": "json"
+  },
+  "status": 504,
+  "content_type": "application/json",
+  "bytes": 194
+}

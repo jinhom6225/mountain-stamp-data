@@ -1,0 +1,1 @@
+<?xml version="1.0"?><!DOCTYPE r [<!ENTITY a "aaaaaaaaaa"><!ENTITY b "&a;&a;&a;&a;">]><response><header><resultCode>00</resultCode></header><body><items><item><mntnm>&b;</mntnm></item></items><totalCount>1</totalCount></body></response>

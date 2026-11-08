@@ -1,0 +1,11 @@
+{
+  "name": "kfs_trail_search_p1",
+  "url": "https://apis.data.go.kr/1400000/cultureInfoService/gdTrailInfoOpenAPI",
+  "params": {
+    "pageNo": "1",
+    "numOfRows": "100"
+  },
+  "status": 200,
+  "content_type": "application/xml",
+  "bytes": 413870
+}

@@ -1,0 +1,12 @@
+{
+  "name": "kfs_trail_detail_gariisan",
+  "url": "https://apis.data.go.kr/1400000/cultureInfoService/gdTrailInfoImgOpenAPI",
+  "params": {
+    "searchWrd": "421100101",
+    "pageNo": "1",
+    "numOfRows": "10"
+  },
+  "status": 200,
+  "content_type": "application/xml",
+  "bytes": 1193
+}

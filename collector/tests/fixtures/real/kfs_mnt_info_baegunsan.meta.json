@@ -1,0 +1,12 @@
+{
+  "name": "kfs_mnt_info_baegunsan",
+  "url": "https://apis.data.go.kr/1400000/service/cultureInfoService2/mntInfoOpenAPI2",
+  "params": {
+    "searchWrd": "백운산",
+    "pageNo": "1",
+    "numOfRows": "100"
+  },
+  "status": 200,
+  "content_type": "application/xml",
+  "bytes": 21381
+}
