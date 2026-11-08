@@ -54,13 +54,19 @@ def join_trail(mountains: Sequence[ListMountain], trail: Sequence[TrailInfo]) ->
     return joined
 
 
+def _info_base(name: str) -> str:
+    """15058662 names: "강천산_왕자봉" / "덕유산(향적봉)" -> base name."""
+    return name.split("_")[0].split("(")[0].strip()
+
+
 def join_info(
     mountains: Sequence[ListMountain],
     trail_by_id: Mapping[str, TrailInfo],
     info: Sequence[MountainInfo],
 ) -> Dict[str, MountainInfo]:
     """Mountain id -> 15058662 row by 산코드 (15158915 code, else the list
-    code when no other list row shares it); the names must agree."""
+    code when no other list row shares it); the base names must agree
+    (15058662 writes national-park mountains as "강천산_왕자봉")."""
     by_code = {row.code: row for row in info}
     list_codes = Counter(m.code for m in mountains if m.code)
     joined: Dict[str, MountainInfo] = {}
@@ -68,7 +74,7 @@ def join_info(
         trail = trail_by_id.get(mountain_id(mountain))
         code = trail.code if trail and trail.code else (mountain.code if mountain.code and list_codes[mountain.code] == 1 else None)
         row = by_code.get(code) if code else None
-        if row is not None and row.name.split("(")[0].strip() == mountain.name:
+        if row is not None and _info_base(row.name) == mountain.name:
             joined[mountain_id(mountain)] = row
     return joined
 

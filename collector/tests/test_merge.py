@@ -57,8 +57,14 @@ class JoinTest(unittest.TestCase):
         self.assertGreaterEqual(len(joined), 15)  # the fixture is page 1 of 5 (names 가~대)
         for mid, info in joined.items():
             m = next(x for x in MOUNTAINS if mountain_id(x) == mid)
-            self.assertEqual(info.name.split("(")[0], m.name)
+            self.assertEqual(info.name.split("_")[0].split("(")[0], m.name)
         self.assertEqual(joined[mountain_id(mountain("가리산"))].code, "421100101")
+
+    def test_info_join_accepts_the_peak_suffix(self):
+        # 15058662 names national-park mountains "강천산_왕자봉", "계룡산_천황봉".
+        joined = join_info(MOUNTAINS, join_trail(MOUNTAINS, TRAIL), INFO)
+        for name, code in (("강천산", "457700101"), ("계룡산", "441500301"), ("대둔산", "442300801")):
+            self.assertEqual(joined[mountain_id(mountain(name))].code, code)
 
     def test_info_join_refuses_a_code_with_another_name(self):
         trail = join_trail(MOUNTAINS, TRAIL)
