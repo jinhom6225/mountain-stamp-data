@@ -95,7 +95,7 @@ class SecondRunTest(unittest.TestCase):
         for key in ("m-0000000002", "m-0000000043", "m-0000000099"):
             for field in ("subtitle", "transport", "courses", "summary"):
                 self.assertEqual(item(after, key)[field], item(before, key)[field], (key, field))
-        self.assertEqual(result.transport.kinds().count("trail"), 3)  # first try + 2 retries
+        self.assertEqual(result.transport.kinds().count("trail"), 6)  # first try + 5 retries
         trail_source = next(s for s in after["sources"] if s["id"] == "kfsTrail")
         self.assertEqual(trail_source["fetchedAt"], FIRST_RUN_UTC)
 
@@ -122,7 +122,7 @@ class FailureTest(unittest.TestCase):
             result = run_collect(repo, FakeDataGoKr(errors={"list": TIMEOUT_504}))
             self.assert_nothing_written(repo, result, 3)
         self.assertIn("resultCode=05", result.notice)
-        self.assertEqual(result.sleeps, [5.0, 10.0])
+        self.assertEqual(result.sleeps, [20.0, 40.0, 80.0, 160.0, 320.0])
 
     def test_list_retry_then_success(self):
         with temp_repo() as repo:

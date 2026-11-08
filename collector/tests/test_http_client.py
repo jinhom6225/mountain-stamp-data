@@ -52,13 +52,13 @@ class ApiClientTest(unittest.TestCase):
     def test_retries_with_backoff_then_succeeds(self):
         client, transport, clock = api(RawResponse(500, b""), CallFailed("ktc", "request failed (timeout)"), RawResponse(200, OK))
         client.call(BASE, "ktc", (), "serviceKey", body_of)
-        self.assertEqual((len(transport.urls), clock.sleeps), (3, [5.0, 10.0]))
+        self.assertEqual((len(transport.urls), clock.sleeps), (3, [20.0, 40.0]))
 
     def test_gives_up_after_retries(self):
-        client, transport, _ = api(*[RawResponse(503, b"")] * 3)
+        client, transport, _ = api(*[RawResponse(503, b"")] * 6)
         with self.assertRaises(CallFailed) as caught:
             client.call(BASE, "ktc", (), "serviceKey", body_of)
-        self.assertEqual((caught.exception.status, len(transport.urls)), (503, 3))
+        self.assertEqual((caught.exception.status, len(transport.urls)), (503, 6))
 
     def test_redirect_oversize_and_refused_base_are_not_retried(self):
         for outcome in (RawResponse(302, b""), RawResponse(200, b"x" * (8 * 1024 * 1024 + 1))):

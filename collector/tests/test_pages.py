@@ -158,7 +158,7 @@ class FetchAllTest(unittest.TestCase):
         timeout = RawResponse(504, real_bytes("ktc_plus_list_504.json"))
         api, transport, clock = client(timeout, timeout, self.page(0, 100, 1))
         self.assertEqual(len(fetch_all(api, TOP100)), 100)
-        self.assertEqual((len(transport.urls), clock.sleeps), (3, [5.0, 10.0]))
+        self.assertEqual((len(transport.urls), clock.sleeps), (3, [20.0, 40.0]))
 
     def test_key_error_is_not_retried(self):
         api, transport, _ = client(RawResponse(200, real_bytes("ktc_bad_key.json")))

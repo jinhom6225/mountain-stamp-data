@@ -92,8 +92,8 @@ MAX_PAGES: Final = 20
 # HTTP. Only this origin is ever requested.
 API_ORIGINS: Final = frozenset({("https", "apis.data.go.kr")})
 TIMEOUT_SECONDS: Final = 90.0
-RETRIES: Final = 2
-BACKOFF_BASE_SECONDS: Final = 5.0
+RETRIES: Final = 5  # the 100 mountain gateway times out (504) for minutes at a time
+BACKOFF_BASE_SECONDS: Final = 20.0  # 20, 40, 80, 160, 320 s ≈ 10 min
 MAX_API_BYTES: Final = 8 * 1024 * 1024
 USER_AGENT: Final = "mountain-stamp-data-collector/1 (+https://github.com/jinhom6225/mountain-stamp-data)"
 
