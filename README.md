@@ -1,6 +1,6 @@
 # mountain-stamp-data
 
-Android 앱 **명산수첩**(`com.mjhlabs.mountainstampbook`)이 읽는 100대 명산 데이터 저장소입니다.
+Android 앱 **정상찍기**(`com.mjhlabs.mountainstampbook`)이 읽는 100대 명산 데이터 저장소입니다.
 GitHub Actions가 주 1번(월요일 04:00 KST 예약, 실제 시작은 보통 몇 시간 늦음) 공공데이터포털 API에서
 산 목록·봉우리 정보·산 설명을 받아 손 보정 파일과 합친 파일 하나를 만들어 이 저장소에 커밋합니다.
 
@@ -16,6 +16,9 @@ GitHub Actions가 주 1번(월요일 04:00 KST 예약, 실제 시작은 보통 �
 | `kfsTrail` | 산림청 명산등산로 (15158915) | 선정 이유·개관·상세·대중교통·주변 관광·코스 |
 | `kfsMnt` | 산림청 산정보 (15058662) | 위 글이 비었을 때 대체, 데이터 기준일 |
 | `ktcPlus` | 한국등산트레킹지원센터 100대명산플러스 목록정보 (15125128) | **꺼져 있음** — 2026-11-09 실측 때 응답 없음(504). 실제 응답을 fixture로 저장한 뒤 켭니다 (`collector/config.py` `SOURCES`) |
+
+변산·천성산 두 산의 도장 지점 좌표는 OpenStreetMap에서 가져왔습니다 — **© OpenStreetMap contributors**,
+[ODbL](https://opendatacommons.org/licenses/odbl/) (<https://www.openstreetmap.org/copyright>). 아래 "도장 지점과 손 보정" 참고.
 
 ## 앱이 읽는 파일
 
@@ -41,6 +44,11 @@ https://raw.githubusercontent.com/jinhom6225/mountain-stamp-data/main/data/mount
 - 기본은 목록(15125127) 좌표입니다. 실측(2026-11-09)에서 100곳 중 17곳이 실제 정상에서 200m~10km 떨어져 있어
   **보정 파일이 원천보다 우선**합니다. 보정 좌표는 같은 기관의 봉우리 POI(15097953) 값의 평균이고,
   항목마다 `note`(왜)와 `evidence`(원천 좌표·거리·poiId·확인 날짜)를 적습니다.
+- 봉우리 POI에 그 산의 등산 정상이 없는 **변산(관음봉·쌍선봉·세봉)·천성산(원효봉·비로봉)**은 OpenStreetMap `natural=peak`
+  노드 좌표를 씁니다(`evidence.osmNodes`에 node id·좌표·높이, © OpenStreetMap contributors, ODbL).
+  Wikidata(CC0)를 먼저 대조했지만 같은 이름 봉우리 항목이 없거나 OSM 노드에서 50m 넘게 떨어져 쓰지 않았습니다
+  (`evidence.wikidataCrossCheck`, 2026-11-09). 천성산은 봉우리 POI("산정상")가 13km 떨어진 다른 자리라 매주
+  `poi check m-0000000081` 경고가 계속 나옵니다(보정 전에도 나던 경고).
 - 봉우리 POI는 현장 조사 지점 모음(이웃 산 봉우리도 섞임)이라 **자동으로 고르지 않습니다**. 매 회차
   "도장 지점 300m 안에 같은 산 POI가 하나도 없는 산"을 경고로만 알립니다.
 - 항목 형식:

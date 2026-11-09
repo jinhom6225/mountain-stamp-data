@@ -1,5 +1,5 @@
 {
-  "_readme": "손 보정: 산 id(m-<frtrlId>) → 도장 지점. stamp[0]이 기본 지점, 나머지는 대체 지점. 좌표는 한국등산트레킹지원센터 봉우리POI(15097953) 값의 평균(소수 5자리). 원천 좌표에서 2km 넘게 옮길 때는 farFromSource=true를 적어야 경고가 나지 않음. keepSource=true(stamp 없음)는 '원천 좌표를 확인했고 그대로 씀' — 매주 POI 대조 경고에서 뺌. 근거는 research.md 사실 정정 2026-11-09.",
+  "_readme": "손 보정: 산 id(m-<frtrlId>) → 도장 지점. stamp[0]이 기본 지점, 나머지는 대체 지점. 좌표는 한국등산트레킹지원센터 봉우리POI(15097953) 값의 평균(소수 5자리). 봉우리 POI에 그 산의 등산 정상이 없을 때(변산·천성산)는 OpenStreetMap natural=peak 노드 좌표(evidence.osmNodes, 소수 5자리, © OpenStreetMap contributors, ODbL)를 쓰고, Wikidata(CC0) 좌표는 같은 이름 봉우리 항목이 OSM 노드 50m 안일 때만 쓰기로 하고 대조 거리를 evidence.wikidataCrossCheck에 적음. 원천 좌표에서 2km 넘게 옮길 때는 farFromSource=true를 적어야 경고가 나지 않음. keepSource=true(stamp 없음)는 '원천 좌표를 확인했고 그대로 씀' — 매주 POI 대조 경고에서 뺌. 근거는 research.md 사실 정정 2026-11-09 · §16-3.",
   "schemaVersion": 1,
   "items": {
     "m-0000000006": {
@@ -260,6 +260,89 @@
         "checked": "2026-11-09"
       }
     },
+    "m-0000000046": {
+      "name": "변산",
+      "stamp": [
+        {
+          "lat": 35.62323,
+          "lng": 126.58253,
+          "name": "변산 관음봉"
+        },
+        {
+          "lat": 35.64474,
+          "lng": 126.55823,
+          "name": "변산 쌍선봉"
+        },
+        {
+          "lat": 35.62646,
+          "lng": 126.5863,
+          "name": "변산 세봉"
+        }
+      ],
+      "farFromSource": true,
+      "note": "원천 좌표는 성인봉(467m, 의상봉에서 약 1.9km) 자리 — 내변산 등산 정상 관음봉(429m)에서 약 7.1km. 최고봉 의상봉(546m)은 군사지역이라 오르지 못해 관음봉을 기본, 같은 능선의 쌍선봉·세봉을 대체 지점으로. 봉우리 POI에는 세봉만 있음(OSM 세봉에서 6m)",
+      "evidence": {
+        "sourceLatLng": [
+          35.679818,
+          126.620083
+        ],
+        "distanceM": 7149,
+        "poiIds": [
+          "0000013716"
+        ],
+        "osmNodes": [
+          {
+            "id": 7972716252,
+            "name": "관음봉",
+            "lat": 35.6232294,
+            "lng": 126.5825286,
+            "ele": "429"
+          },
+          {
+            "id": 10129346990,
+            "name": "쌍선봉",
+            "lat": 35.6447427,
+            "lng": 126.5582293,
+            "ele": "460.7"
+          },
+          {
+            "id": 11393209856,
+            "name": "세봉",
+            "lat": 35.6264575,
+            "lng": 126.5863018,
+            "ele": "402.5"
+          }
+        ],
+        "wikidataCrossCheck": [
+          {
+            "point": "관음봉",
+            "qid": null,
+            "distanceM": null,
+            "result": "부안 관음봉 항목 없음(관음봉 Q27245024 인제·Q27320265 계룡산은 다른 산)"
+          },
+          {
+            "point": "쌍선봉",
+            "qid": "Q27267484",
+            "distanceM": 318,
+            "result": "50m 넘음 — OSM 사용"
+          },
+          {
+            "point": "세봉",
+            "qid": "Q27267823",
+            "distanceM": 1121,
+            "result": "50m 넘음 — OSM 사용"
+          },
+          {
+            "point": "변산(산 항목)",
+            "qid": "Q483528",
+            "distanceM": 7898,
+            "result": "산 전체 항목 좌표, 정상 아님"
+          }
+        ],
+        "crossCheck": "OSM 관음봉·쌍선봉·세봉 natural=peak (좌표 출처, ODbL) · Wikidata 대조 · 봉우리 POI 세봉 0000013716",
+        "checked": "2026-11-09"
+      }
+    },
     "m-0000000049": {
       "name": "삼악산",
       "stamp": [
@@ -426,6 +509,68 @@
           "0000023438"
         ],
         "crossCheck": "OSM 천관산연대봉 723m (확인용, 좌표 출처 아님)",
+        "checked": "2026-11-09"
+      }
+    },
+    "m-0000000081": {
+      "name": "천성산",
+      "stamp": [
+        {
+          "lat": 35.40157,
+          "lng": 129.10628,
+          "name": "천성산 원효봉"
+        },
+        {
+          "lat": 35.41488,
+          "lng": 129.12295,
+          "name": "천성산 비로봉"
+        }
+      ],
+      "farFromSource": true,
+      "note": "원천 좌표는 토곡산(855m, 양산 원동면) 정상 — 다른 산. 천성산 원효봉(920m, 목록 높이 922m)에서 약 14.3km. 원효봉 기본, 2봉 비로봉(855m)을 대체 지점으로. 봉우리 POI에 천성산 봉우리 없음(\"산정상\" 0000024047은 13km 떨어진 다른 자리)",
+      "evidence": {
+        "sourceLatLng": [
+          35.378184,
+          128.950771
+        ],
+        "distanceM": 14335,
+        "osmNodes": [
+          {
+            "id": 7972716269,
+            "name": "천성산(원효봉)",
+            "lat": 35.4015733,
+            "lng": 129.1062817,
+            "ele": "920.2"
+          },
+          {
+            "id": 7597078684,
+            "name": "천성산2봉(비로봉)",
+            "lat": 35.4148841,
+            "lng": 129.1229543,
+            "ele": "855"
+          }
+        ],
+        "wikidataCrossCheck": [
+          {
+            "point": "원효봉",
+            "qid": "Q27267005",
+            "distanceM": 151,
+            "result": "원효산 항목, 50m 넘음 — OSM 사용"
+          },
+          {
+            "point": "비로봉",
+            "qid": null,
+            "distanceM": null,
+            "result": "천성산 비로봉 항목 없음"
+          },
+          {
+            "point": "천성산(산 항목)",
+            "qid": "Q5091685",
+            "distanceM": 2148,
+            "result": "원효봉 2.1km·비로봉 1.1km, 정상 아님"
+          }
+        ],
+        "crossCheck": "OSM 천성산(원효봉)·천성산2봉(비로봉) natural=peak (좌표 출처, ODbL) · Wikidata 대조",
         "checked": "2026-11-09"
       }
     },

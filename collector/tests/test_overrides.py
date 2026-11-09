@@ -20,12 +20,18 @@ POINT = {"lat": 37.5, "lng": 127.0, "name": "정상"}
 class RealOverridesTest(unittest.TestCase):
     def test_real_file(self):
         overrides = load_overrides(REAL_OVERRIDES)
-        self.assertEqual(len(overrides), 19)
-        self.assertEqual(sum(1 for o in overrides.values() if o.stamp), 17)
+        self.assertEqual(len(overrides), 21)
+        self.assertEqual(sum(1 for o in overrides.values() if o.stamp), 19)
         self.assertEqual({k for k, o in overrides.items() if o.keep_source}, {"m-0000000039", "m-0000000072"})
         self.assertEqual(len(overrides["m-0000000065"].stamp), 2)  # 운장대 + 삼장봉
+        # 변산: 관음봉 + 쌍선봉·세봉, 천성산: 원효봉 + 비로봉 (OSM, 2026-11-09).
+        self.assertEqual([p.name for p in overrides["m-0000000046"].stamp], ["변산 관음봉", "변산 쌍선봉", "변산 세봉"])
+        self.assertEqual([p.name for p in overrides["m-0000000081"].stamp], ["천성산 원효봉", "천성산 비로봉"])
 
     def test_real_points_come_from_the_cited_pois(self):
+        """Every point is a cited POI of the same mountain (within 30 m) or,
+        where the POIs have no such peak, a cited OpenStreetMap peak node
+        (the node's own coordinate, within 1 m)."""
         raw = json.loads(REAL_OVERRIDES.read_text(encoding="utf-8"))["items"]
         pois = {p.poi_id: p for p in (parse_poi(row) for row in real_pois())}
         mountains = {f"m-{m.frtrl_id}": m for m in (parse_list_mountain(row) for row in real_list())}
@@ -33,12 +39,19 @@ class RealOverridesTest(unittest.TestCase):
             self.assertEqual(entry["name"], mountains[entry_id].source_name)
             if entry.get("keepSource"):
                 continue
-            cited = [pois[i] for i in entry["evidence"]["poiIds"]]
+            evidence = entry["evidence"]
+            cited = [pois[i] for i in evidence.get("poiIds", [])]
+            nodes = evidence.get("osmNodes", [])
+            self.assertTrue(cited or nodes, entry_id)
             for poi in cited:
                 self.assertEqual(f"m-{poi.frtrl_id}", entry_id)
+            for node in nodes:
+                self.assertIsInstance(node["id"], int, entry_id)
+                self.assertTrue(node["name"], entry_id)
             for point in entry["stamp"]:
-                nearest = min(distance_m(point["lat"], point["lng"], p.lat, p.lng) for p in cited)
-                self.assertLess(nearest, 30, (entry_id, point["name"]))
+                from_poi = min((distance_m(point["lat"], point["lng"], p.lat, p.lng) for p in cited), default=1e9)
+                from_osm = min((distance_m(point["lat"], point["lng"], n["lat"], n["lng"]) for n in nodes), default=1e9)
+                self.assertTrue(from_poi < 30 or from_osm < 1, (entry_id, point["name"]))
             m = mountains[entry_id]
             moved = distance_m(m.lat, m.lng, entry["stamp"][0]["lat"], entry["stamp"][0]["lng"])
             self.assertGreater(moved, 200, entry_id)  # only clear errors are overridden

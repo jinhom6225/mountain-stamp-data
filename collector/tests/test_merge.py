@@ -130,7 +130,7 @@ class PoiCheckTest(unittest.TestCase):
     def test_real_data_with_real_overrides(self):
         warnings, no_poi = poi_warnings(MOUNTAINS, OVERRIDES, POIS)
         self.assertEqual(no_poi, 4)
-        self.assertEqual([w.split("(")[1].split(")")[0] for w in warnings], ["변산", "천성산"])
+        self.assertEqual([w.split("(")[1].split(")")[0] for w in warnings], ["천성산"])  # 변산: OSM 세봉 = POI 세봉 (6 m)
 
     def test_without_overrides_the_known_errors_show(self):
         warnings, _ = poi_warnings(MOUNTAINS, {}, POIS)

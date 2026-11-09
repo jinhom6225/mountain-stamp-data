@@ -99,6 +99,15 @@ class FilesTest(unittest.TestCase):
             self.assertTrue(entry.get("note"), entry_id)
             self.assertTrue(entry.get("evidence", {}).get("checked"), entry_id)
 
+    def test_openstreetmap_points_are_credited(self):
+        """ODbL: once a stamp point comes from OpenStreetMap, the README and
+        the overrides file say so."""
+        text = (ROOT / "overrides" / "summits.json").read_text(encoding="utf-8")
+        items = json.loads(text)["items"].values()
+        if any(entry.get("evidence", {}).get("osmNodes") for entry in items):
+            self.assertIn("© OpenStreetMap contributors", (ROOT / "README.md").read_text(encoding="utf-8"))
+            self.assertIn("© OpenStreetMap contributors", json.loads(text)["_readme"])
+
 
 if __name__ == "__main__":
     unittest.main()

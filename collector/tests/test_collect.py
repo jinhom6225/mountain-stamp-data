@@ -38,7 +38,7 @@ class FirstRunTest(unittest.TestCase):
         self.assertEqual((data["schemaVersion"], data["generatedAt"]), (1, FIRST_RUN_UTC))
         self.assertEqual(len(data["items"]), 100)
         self.assertEqual(len({i["id"] for i in data["items"]}), 100)
-        self.assertEqual(sum(1 for i in data["items"] if i["stampSource"] == "override"), 17)
+        self.assertEqual(sum(1 for i in data["items"] if i["stampSource"] == "override"), 19)
         self.assertEqual({i["set"] for i in data["items"]}, {"top100"})
         self.assertEqual([s["id"] for s in data["sources"]], ["ktc", "ktcPoi", "kfsTrail", "kfsMnt"])
         ktc = data["sources"][0]
@@ -53,13 +53,13 @@ class FirstRunTest(unittest.TestCase):
         with temp_repo() as repo:
             result = run_collect(repo)
         self.assertEqual(result.transport.kinds(), ["list", "poi", "trail", "info"])
-        self.assertIn("summary: items=100 invalid=0 overridden=17 joinedTrail=100", result.out)
+        self.assertIn("summary: items=100 invalid=0 overridden=19 joinedTrail=100", result.out)
         self.assertIn("noPoi=4", result.out)
-        self.assertIn("warning: poi check m-0000000046 (변산)", result.out)
+        self.assertNotIn("poi check m-0000000046", result.out)  # 변산 세봉 = POI 세봉
         self.assertIn("warning: poi check m-0000000081 (천성산)", result.out)
         self.assertTrue(result.commit_message.startswith("chore(data): update mountains (+100 new"))
-        self.assertIn("✅ mountain-stamp-data 수집\n산 100 · 검증 탈락 0 · 도장 지점 보정 17", result.notice)
-        self.assertIn("⚠ 경고 2", result.notice)
+        self.assertIn("✅ mountain-stamp-data 수집\n산 100 · 검증 탈락 0 · 도장 지점 보정 19", result.notice)
+        self.assertIn("⚠ 경고 1", result.notice)
 
     def test_list_order_and_items_sorted_by_name(self):
         with temp_repo() as repo:
